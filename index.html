@@ -42,18 +42,12 @@
     console.log("Hello World!")
   </script> -->
 
-  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+ <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script> 
   <script>
     function createUniversalLink() {
     }
 
     async function shareMsg() {
-      await liff.shareTargetPicker([
-      {
-        "type": "text",
-        "text": "This message was sent by ShareTargetPicker"
-      }
-      ])     
     }
 
     function logOut() {
@@ -72,16 +66,6 @@
     }
 
     async function sendMsg() {
-      if (liff.getContext().type !== "none"){
-        await liff.sendMessages([
-          {
-            "type": "sticker",
-            "stickerId": 1,
-            "packageId": 1
-          }
-        ])
-        alert("Message sent")
-      }
     }
 
     function getContext() {
@@ -90,16 +74,14 @@
       document.getElementById("utouId").append(liff.getContext().utouId)
       document.getElementById("roomId").append(liff.getContext().roomId)
       document.getElementById("groupId").append(liff.getContext().groupId)
-
     }
 
     async function getUserProfile() {
-      const profile = await liff.getUserProfile()
-      document.getElementById("pictureUrl").src = profile.pictureUrl
-      document.getElementById("userId").append(profile.userId)
-      document.getElementById("statusMessage").append(profile.statusMessage)
-      document.getElementById("displayName").append(profile.displayName)
-      document.getElementById("decodedIDToken").append(liff.getDecodedIDToken().email)
+     const profile = await liff.getProfile() 
+     document.getElementById("pictureUrl").src = profile.pictureUrl
+     document.getElementById("userId").append(profile.userId)
+     document.getElementById("statusMessage").append(profile.statusMessage)
+     document.getElementById("displayName").append(profile.displayName)
     }
 
     function getEnvironment() {
@@ -108,20 +90,21 @@
       document.getElementById("version").append(liff.getVersion())
       document.getElementById("accessToken").append(liff.getAccessToken())
       document.getElementById("isInClient").append(liff.isInClient())
-      if (liff.isInClient()) {
-        document.getElementById("btnLogout").style.display = "none"
-      } else {
+      if(liff.isInClient()){
+        document.getElementById("btnLogOut").style.display="none"
+      }
+      else{
         document.getElementById("btnMsg").style.display = "none"
         document.getElementById("btnScanCode").style.display = "none"
-        doucment.getElementById("btnClose").style.display = "none"
+        document.getElementById("btnClose").style.display = "none"
       }
     }
 
     async function main() {
-          await liff.init({ liffId: "1657795982-8MYjzxND" })
-          getEnvironment()
-          getUserProfile()
-          getContext()
+          await liff.init({ liffId: "1661497395-nwGQ7x4Y" })
+        getEnvironment()
+        getUserProfile()
+        getContext()
       // getFriendship()
       // createUniversalLink()
     }
